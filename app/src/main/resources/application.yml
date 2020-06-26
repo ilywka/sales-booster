@@ -4,7 +4,9 @@ server:
 spring:
   output:
     ansi:
+#      colored console output
       enabled: always
+
 
 logging:
   level:
@@ -12,3 +14,6 @@ logging:
       springframework:
         boot:
           autoconfigure: error
+  file:
+    path: /var/log/sales-booster-java-app
+    name: app.log
