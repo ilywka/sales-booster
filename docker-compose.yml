@@ -8,3 +8,5 @@ services:
     - "8082:8082"
     volumes:
     - "/var/log/sales-booster-java-app:/var/log/sales-booster-java-app"
+    environment:
+      - "JAVA_OPTS=-Dserver.port=8080"

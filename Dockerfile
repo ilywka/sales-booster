@@ -10,4 +10,6 @@ COPY --from=builder sales-booster-app/dependencies/ ./
 COPY --from=builder sales-booster-app/spring-boot-loader/ ./
 COPY --from=builder sales-booster-app/snapshot-dependencies/ ./
 COPY --from=builder sales-booster-app/application/ ./
-ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
+ENV JAVA_OPTS=""
+CMD java -server ${JAVA_OPTS} org.springframework.boot.loader.JarLauncher
+#CMD "java -server ${JAVA_OPTS} org.springframework.boot.loader.JarLauncher"
