@@ -3,10 +3,14 @@ services:
   app:
     build: .
     ports:
-    - "8080:8080"
-    - "8081:8081"
-    - "8082:8082"
+      - "8080:8080"
+      - "8081:8081"
+      - "8082:8082"
+      - "5000:5000"
     volumes:
-    - "/var/log/sales-booster-java-app:/var/log/sales-booster-java-app"
+      - "/var/log/sales-booster-java-app:/var/log/sales-booster-java-app"
     environment:
-      - "JAVA_OPTS=-Dserver.port=8080"
+      - "JAVA_OPTS=-Dserver.port=8080 -Dcom.sun.management.jmxremote -Djava.rmi.server.hostname=${HOST_IP}
+       -Dcom.sun.management.jmxremote.port=5000 -Dcom.sun.management.jmxremote.rmi.port=5000
+       -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.authenticate=false
+       -Dcom.sun.management.jmxremote.ssl=false"
