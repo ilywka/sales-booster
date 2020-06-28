@@ -6,13 +6,15 @@ on:
 jobs:
 
   build:
-    name: Deploy to gcp
+    name: start app container
     runs-on: ubuntu-latest
     steps:
-      - name: executing remote ssh commands using password
+      - name: test
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          script: docker image list
+          script: |
+            cd ~/deployment
+            docker-compose up -d app
