@@ -19,8 +19,7 @@ jobs:
 
     steps:
       - name: setup env vars
-#        run: echo "::set-env name=TAG::${GITHUB_REF#refs/tags/}"
-        run: echo "::set-env name=TAG::0.1"
+        run: echo "::set-env name=TAG::${GITHUB_REF#refs/tags/}"
       - uses: actions/checkout@v2
 
       - name: maven cache
@@ -44,8 +43,8 @@ jobs:
         with:
           username: _json_key
           password: ${{ secrets.GCE_SA_KEY }}
-          image_name: $PROJECT_ID/$GCE_INSTANCE-image
-          image_tag: $TAG
+          image_name: "$PROJECT_ID/$GCE_INSTANCE-image"
+          image_tag: "$TAG"
           registry: eu.gcr.io
 
       - name: Update docker-compose.yml
