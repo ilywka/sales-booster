@@ -7,18 +7,19 @@ on:
     branches:
       - deploy
 
-env:
-  PROJECT_ID: ${{ secrets.GCE_PROJECT_ID }}
-  GCE_INSTANCE: sales-booster
-  GCE_INSTANCE_ZONE:  europe-west4-a
-  REF: ${GITHUB_REF#refs/tags/}
-
 jobs:
   build-deploy:
+
+    env:
+      PROJECT_ID: ${{ secrets.GCE_PROJECT_ID }}
+      GCE_INSTANCE: sales-booster
+      GCE_INSTANCE_ZONE:  europe-west4-a
 
     runs-on: ubuntu-latest
 
     steps:
+      - name: setup env vars
+        run: echo "::set-env name=REF::${GITHUB_REF#refs/tags/}"
       - uses: actions/checkout@v2
 
       - name: Cache local Maven repository
