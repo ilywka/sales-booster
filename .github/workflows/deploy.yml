@@ -68,11 +68,11 @@ jobs:
 
       - name: Start application
         uses: appleboy/ssh-action@master
-        envs: PROJECT_ID,GCE_INSTANCE,REF
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
+          envs: PROJECT_ID,GCE_INSTANCE,REF
           script: |
             cd ~/deployment
             export "IMAGE=gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$REF"
