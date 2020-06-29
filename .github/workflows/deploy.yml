@@ -13,7 +13,7 @@ jobs:
     env:
       PROJECT_ID: ${{ secrets.GCE_PROJECT_ID }}
       GCE_INSTANCE: sales-booster
-      GCE_INSTANCE_ZONE:  europe-west4-a
+      GCE_INSTANCE_ZONE: europe-west4-a
 
     runs-on: ubuntu-latest
 
@@ -72,5 +72,5 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd ~/deployment
-            export IMAGE=gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$REF
+            export "IMAGE=gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$REF"
             docker-compose up --no-build -d app
