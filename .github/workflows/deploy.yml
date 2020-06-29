@@ -43,8 +43,8 @@ jobs:
         with:
           username: _json_key
           password: ${{ secrets.GCE_SA_KEY }}
-          image_name: "$PROJECT_ID/$GCE_INSTANCE-image"
-          image_tag: "$TAG"
+          image_name: "${{ env.PROJECT_ID }}/${{ env.GCE_INSTANCE }}-image"
+          image_tag: "${{ env.TAG }}"
           registry: eu.gcr.io
 
       - name: Update docker-compose.yml
