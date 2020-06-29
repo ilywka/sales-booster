@@ -47,15 +47,15 @@ jobs:
       - run: |-
           gcloud --quiet auth configure-docker
 
-      - name: Build
+      - name: Build image
         run: |-
           docker build --tag "gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$REF" .
 
-      - name: Publish
+      - name: Publish image
         run: |-
           docker push "gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$REF"
 
-      - name: Update docker-compose
+      - name: Update docker-compose.yml
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
