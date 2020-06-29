@@ -11,7 +11,7 @@ env:
   PROJECT_ID: ${{ secrets.GCE_PROJECT_ID }}
   GCE_INSTANCE: sales-booster
   GCE_INSTANCE_ZONE:  europe-west4-a
-  REF: ${{ github.ref }}
+  REF: ${GITHUB_REF#refs/tags/}
 
 jobs:
   build-deploy:
