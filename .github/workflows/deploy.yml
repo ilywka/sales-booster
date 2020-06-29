@@ -3,9 +3,6 @@ on:
   release:
     types:
       - released
-  push:
-    branches:
-      - deploy
 
 jobs:
   build-deploy:
@@ -46,6 +43,7 @@ jobs:
           image_name: "${{ env.PROJECT_ID }}/${{ env.GCE_INSTANCE }}-image"
           image_tag: "${{ env.TAG }}"
           registry: eu.gcr.io
+          pull_image_and_stages: false
 
       - name: Update docker-compose.yml
         uses: appleboy/scp-action@master
