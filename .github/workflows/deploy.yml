@@ -1,0 +1,69 @@
+name: Deploy
+on:
+  release:
+    types:
+      - released
+
+jobs:
+  build-deploy:
+
+    env:
+      PROJECT_ID: ${{ secrets.GCE_PROJECT_ID }}
+      GCE_INSTANCE: sales-booster
+      GCE_INSTANCE_ZONE: europe-west4-a
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: setup env vars
+        run: echo "::set-env name=TAG::${GITHUB_REF#refs/tags/}"
+      - uses: actions/checkout@v2
+
+      - name: maven cache
+        uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          path: ~/.m2/repository
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Build no test
+        run: mvn -B package -DskipTests
+
+      - name: Build and publish image
+        uses: whoan/docker-build-with-cache-action@v5
+        with:
+          username: _json_key
+          password: ${{ secrets.GCE_SA_KEY }}
+          image_name: "${{ env.PROJECT_ID }}/${{ env.GCE_INSTANCE }}-image"
+          image_tag: "${{ env.TAG }}"
+          registry: eu.gcr.io
+          pull_image_and_stages: false
+
+      - name: Update docker-compose.yml
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          source: "./docker-compose.yml"
+          target: "~/deployment/"
+
+      - name: Start application
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          envs: PROJECT_ID,GCE_INSTANCE,TAG
+          script: |
+            cd ~/deployment
+            export "IMAGE=eu.gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$TAG"
+            export "HOST_IP=$( curl ifconfig.me )"
+            docker-compose stop app
+            docker-compose up --no-build -d app
