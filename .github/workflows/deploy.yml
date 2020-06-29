@@ -22,7 +22,7 @@ jobs:
         run: echo "::set-env name=REF::${GITHUB_REF#refs/tags/}"
       - uses: actions/checkout@v2
 
-      - name: Cache local Maven repository
+      - name: maven cache
         uses: actions/cache@v2
         with:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -38,7 +38,9 @@ jobs:
       - name: Build no test
         run: mvn -B package -DskipTests
 
-      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+
+      - name: setup gcloud
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
           version: '290.0.1'
           service_account_key: ${{ secrets.GCE_SA_KEY }}
@@ -64,8 +66,9 @@ jobs:
           source: "./docker-compose.yml"
           target: "~/deployment/"
 
-      - name: Start
+      - name: Start application
         uses: appleboy/ssh-action@master
+        envs: PROJECT_ID,GCE_INSTANCE,REF
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
