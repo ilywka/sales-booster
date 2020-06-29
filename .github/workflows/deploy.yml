@@ -76,4 +76,5 @@ jobs:
           script: |
             cd ~/deployment
             export "IMAGE=gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$REF"
+            docker-compose stop app
             docker-compose up --no-build -d app
