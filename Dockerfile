@@ -9,7 +9,7 @@ WORKDIR app
 COPY --from=builder sales-booster-app/dependencies/ ./
 COPY --from=builder sales-booster-app/spring-boot-loader/ ./
 COPY --from=builder sales-booster-app/snapshot-dependencies/ ./
-RUN true
+#RUN true
 COPY --from=builder sales-booster-app/application/ ./
 ENV JAVA_OPTS=""
 CMD java -server ${JAVA_OPTS} org.springframework.boot.loader.JarLauncher
