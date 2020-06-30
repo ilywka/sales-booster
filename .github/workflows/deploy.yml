@@ -22,8 +22,8 @@ jobs:
         run: echo "::set-env name=TAG::${GITHUB_REF#refs/tags/}"
 
       - name: setup env vars test deploy
-          if: ${{ contains(github.event.ref, 'dev' }}
-          run: echo "::set-env name=TAG::0.0.1"
+        if: ${{ contains(github.event.ref, 'dev' }}
+        run: echo "::set-env name=TAG::0.0.1"
 
       - uses: actions/checkout@v2
 
