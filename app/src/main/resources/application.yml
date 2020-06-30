@@ -1,7 +1,7 @@
 server:
   port: 8443
   ssl:
-    key-store: certs/keystore.p12
+    key-store: classpath:certs/keystore.p12
     key-store-password: sbgce123
     keyStoreType: PKCS12
     keyAlias: tomcat
