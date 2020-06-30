@@ -4,6 +4,9 @@ on:
     types:
       - released
 
+  push:
+    branches: [ dev ]
+
 jobs:
   build-deploy:
 
