@@ -74,4 +74,5 @@ jobs:
             export "IMAGE=eu.gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$TAG"
             export "HOST_IP=$( curl ifconfig.me )"
             docker-compose stop app
+            docker-compose pull app
             docker-compose up --no-build -d app
