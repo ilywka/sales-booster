@@ -10,7 +10,8 @@ jobs:
 
     steps:
       - name: setup env vars
-        run: echo "${{ github.event.push.ref }}"
+        if: endsWith(github.ref, 'dev')
+        run: echo "qwe"
 
       - name: setup env vars
-        run: echo "${{ github.event.release }}"
+        run: echo github.event.release
