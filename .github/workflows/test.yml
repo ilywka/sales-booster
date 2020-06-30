@@ -1,17 +1,17 @@
-name: test
-on:
-  push:
-    branches: [ dev ]
-
-jobs:
-  build-deploy:
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: setup env vars
-        if: endsWith(github.ref, 'dev')
-        run: echo "qwe"
-
-      - name: setup env vars
-        run: echo github.event.release
+#name: test
+#on:
+#  push:
+#    branches: [ dev ]
+#
+#jobs:
+#  build-deploy:
+#
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: setup env vars
+#        if: endsWith(github.ref, 'dev')
+#        run: echo "qwe"
+#
+#      - name: setup env vars
+#        run: echo github.event.release

@@ -4,8 +4,8 @@ on:
     types:
       - released
 
-#  push:
-#    branches: [ dev ]
+  push:
+    branches: [ dev ]
 
 jobs:
   build-deploy:
@@ -22,7 +22,7 @@ jobs:
         run: echo "::set-env name=TAG::${GITHUB_REF#refs/tags/}"
 
       - name: setup env vars test deploy
-        if: github.event.ref == 'dev'
+        if: endsWith(github.ref, 'dev')
         run: echo "::set-env name=TAG::0.0.1"
 
       - uses: actions/checkout@v2
