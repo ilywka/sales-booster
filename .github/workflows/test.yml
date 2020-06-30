@@ -10,4 +10,7 @@ jobs:
 
     steps:
       - name: setup env vars
-        run: echo "github.event.push.ref"
+        run: echo "${{ github.event.push.ref }}"
+
+      - name: setup env vars
+        run: echo "${{ github.event.release }}"
