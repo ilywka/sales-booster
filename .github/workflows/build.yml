@@ -5,7 +5,7 @@ name: Build
 
 on:
   push:
-    branches: [ master, dev, release/* ]
+    branches: [ master, release/* ]
   pull_request:
     branches: [ master ]
 
