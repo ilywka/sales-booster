@@ -31,4 +31,4 @@ jobs:
         java-version: 11
 
     - name: Build
-      run: mvn -B package
+      run: mvn -B clean package
