@@ -5,8 +5,9 @@
   <modelVersion>4.0.0</modelVersion>
   <packaging>pom</packaging>
   <modules>
-    <module>app</module>
-    <module>core</module>
+    <module>sb-app</module>
+    <module>sb-core</module>
+    <module>sb-persistence</module>
   </modules>
   <parent>
     <groupId>org.springframework.boot</groupId>
@@ -17,45 +18,12 @@
   <groupId>com.sashnikov.salesbooster</groupId>
   <artifactId>sales-booster-parent</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <description>Demo project for Spring Boot</description>
+  <description>sales booster app</description>
 
   <properties>
     <java.version>11</java.version>
   </properties>
 
-
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-jdbc</artifactId>
-      </dependency>
-      <!--      jooq or jdbc-->
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-jooq</artifactId>
-      </dependency>
-
-
-      <dependency>
-        <groupId>org.liquibase</groupId>
-        <artifactId>liquibase-core</artifactId>
-      </dependency>
-
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-devtools</artifactId>
-        <scope>runtime</scope>
-        <optional>true</optional>
-      </dependency>
-      <dependency>
-        <groupId>org.postgresql</groupId>
-        <artifactId>postgresql</artifactId>
-        <scope>runtime</scope>
-      </dependency>
-
-    </dependencies>
-  </dependencyManagement>
 
   <dependencies>
     <dependency>

@@ -1,0 +1,33 @@
+server:
+  port: 8443
+  ssl:
+    key-store: classpath:certs/keystore.p12
+    key-store-password: sbgce123
+    keyStoreType: PKCS12
+    keyAlias: tomcat
+
+spring:
+  output:
+    ansi:
+#      colored console output
+      enabled: always
+
+  liquibase:
+    change-log: classpath:/db/changelog/dbchangelog.xml
+  datasource:
+    url:
+    hikari:
+      maximum-pool-size: 10
+    username: sbuser
+    password:
+
+
+logging:
+  level:
+    org:
+      springframework:
+        boot:
+          autoconfigure: error
+  file:
+    path: /var/log/sales-booster-java-app
+    name: app.log
