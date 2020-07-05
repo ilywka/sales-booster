@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/salesbooster
+    hikari:
+      maximum-pool-size: 10
+    username: sbuser
+    password: 12345678
