@@ -1,3 +1,7 @@
 server:
   ssl:
     enabled: false
+
+logging:
+  file:
+    path: ./
