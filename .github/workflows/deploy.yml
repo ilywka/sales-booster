@@ -4,8 +4,8 @@ on:
     types:
       - released
 
-  push:
-    branches: [ dev ]
+#  push:
+#    branches: [ dev ]
 
 jobs:
   build-deploy:
