@@ -17,13 +17,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-#    - name: Cache local Maven repository
-#      uses: actions/cache@v2
-#      with:
-#        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-#        path: ~/.m2/repository
-#        restore-keys: |
-#          ${{ runner.os }}-maven-
+    - name: Cache local Maven repository
+      uses: actions/cache@v2
+      with:
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        path: ~/.m2/repository
+        restore-keys: |
+          ${{ runner.os }}-maven-
       
     - name: Set up JDK 
       uses: actions/setup-java@v1
@@ -31,4 +31,4 @@ jobs:
         java-version: 11
 
     - name: Build
-      run: sudo mvn -B package
+      run: mvn -B package
