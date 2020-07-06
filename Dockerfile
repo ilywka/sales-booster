@@ -1,6 +1,6 @@
 FROM adoptopenjdk:11-jre-hotspot as builder
 WORKDIR sales-booster-app
-ARG JAR_FILE=app/target/*-exec.jar
+ARG JAR_FILE=sb-app/target/*-exec.jar
 COPY ${JAR_FILE} app.jar
 RUN java -Djarmode=layertools -jar app.jar extract
 
