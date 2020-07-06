@@ -42,7 +42,7 @@ jobs:
           java-version: 11
 
       - name: Build no test
-        run: mvn -B package -DskipTests
+        run: mvn -B install
 
       - name: Build and publish image
         uses: whoan/docker-build-with-cache-action@v5
