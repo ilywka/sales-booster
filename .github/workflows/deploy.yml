@@ -68,7 +68,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          envs: PROJECT_ID,GCE_INSTANCE,TAG
+          envs: PROJECT_ID,GCE_INSTANCE,TAG,DB_PASSWORD
           script: |
             cd ~/deployment
             export "IMAGE=eu.gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$TAG"

@@ -16,7 +16,7 @@ spring:
   liquibase:
     change-log: classpath:/db/changelog/dbchangelog.xml
   datasource:
-    url:
+    url: jdbc:postgresql://localhost:5432/sbdb
     hikari:
       maximum-pool-size: 10
     username: sbuser
