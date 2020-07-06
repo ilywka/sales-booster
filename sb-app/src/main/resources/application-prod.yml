@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://${HOST_IP}:5432/salesbooster
+    url: jdbc:postgresql://${HOST_IP}:5432/sbdb
     hikari:
       maximum-pool-size: 10
     username: sbuser
