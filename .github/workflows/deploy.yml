@@ -4,8 +4,8 @@ on:
     types:
       - released
 
-#  push:
-#    branches: [ dev ]
+  push:
+    branches: [ dev ]
 
 jobs:
   build-deploy:
@@ -14,6 +14,7 @@ jobs:
       PROJECT_ID: ${{ secrets.GCE_PROJECT_ID }}
       GCE_INSTANCE: sales-booster
       GCE_INSTANCE_ZONE: europe-west4-a
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
     runs-on: ubuntu-latest
 
