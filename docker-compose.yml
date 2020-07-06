@@ -8,6 +8,7 @@ services:
     volumes:
       - "/var/log/sales-booster-java-app:/var/log/sales-booster-java-app"
     environment:
+      - HOST_IP=${HOST_IP}
       - "JAVA_OPTS= -Dspring.profiles.active=prod -Dspring.datasource.password=${DB_PASSWORD}
        -Dcom.sun.management.jmxremote -Djava.rmi.server.hostname=${HOST_IP}
        -Dcom.sun.management.jmxremote.port=5000 -Dcom.sun.management.jmxremote.rmi.port=5000
