@@ -15,18 +15,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class Call {
+public class Order {
 
     private Long id;
     private Customer customer;
-    private CallType callType;
-    private LocalDateTime date;
-    private long durationSeconds;
+    private OrderState state;
+    private LocalDateTime updatedDate;
 
-    public Call(Customer customer, CallType callType, LocalDateTime date, long durationSeconds) {
-        this.customer = customer;
-        this.callType = callType;
-        this.date = date;
-        this.durationSeconds = durationSeconds;
-    }
 }

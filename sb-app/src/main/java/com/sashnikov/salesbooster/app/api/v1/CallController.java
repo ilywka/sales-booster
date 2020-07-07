@@ -1,8 +1,10 @@
 package com.sashnikov.salesbooster.app.api.v1;
 
+import static com.sashnikov.salesbooster.app.usecase.SaveCallsUseCase.SaveCallsCommand;
+
 import java.util.List;
-import com.sashnikov.salesbooster.app.entity.Call;
 import com.sashnikov.salesbooster.app.usecase.SaveCallsUseCase;
+import com.sashnikov.salesbooster.app.usecase.SaveCallsUseCase.CallDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,7 +26,7 @@ public class CallController {
 
     @PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public void createCalls(@RequestBody List<Call> calls) {
-        saveCallsUseCase.save(calls);
+    public void createCalls(@RequestBody List<CallDTO> calls) {
+        saveCallsUseCase.save(new SaveCallsCommand(calls));
     }
 }

@@ -1,11 +1,11 @@
-package com.sashnikov.salesbooster.app.repository;
+package com.sashnikov.salesbooster.app.port;
 
-import java.util.List;
+import java.util.Set;
 import com.sashnikov.salesbooster.app.entity.Call;
 
 /**
  * @author Ilya_Sashnikau
  */
 public interface SaveCallsPort {
-    void save(List<Call> calls);
+    void save(Set<Call> calls);
 }

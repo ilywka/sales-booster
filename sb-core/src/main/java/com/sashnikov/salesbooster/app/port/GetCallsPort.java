@@ -1,4 +1,4 @@
-package com.sashnikov.salesbooster.app.repository;
+package com.sashnikov.salesbooster.app.port;
 
 import java.util.List;
 import com.sashnikov.salesbooster.app.entity.Call;
@@ -6,6 +6,6 @@ import com.sashnikov.salesbooster.app.entity.Call;
 /**
  * @author Ilya_Sashnikau
  */
-public interface ReadCallsPort {
+public interface GetCallsPort {
     List<Call> getAll();
 }
