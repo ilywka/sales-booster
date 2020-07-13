@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 import com.sashnikov.salesbooster.app.entity.Call;
 import com.sashnikov.salesbooster.app.entity.Customer;
 import com.sashnikov.salesbooster.app.entity.PhoneNumber;
-import com.sashnikov.salesbooster.app.port.GetCustomerPort;
-import com.sashnikov.salesbooster.app.port.SaveCallsPort;
-import com.sashnikov.salesbooster.app.port.SaveCustomerPort;
+import com.sashnikov.salesbooster.app.query.GetCustomerQuery;
+import com.sashnikov.salesbooster.app.query.SaveCallsPort;
+import com.sashnikov.salesbooster.app.query.SaveCustomerPort;
 import com.sashnikov.salesbooster.app.usecase.SaveCallsUseCase;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.SetUtils;
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 public class CallsCRUDService implements SaveCallsUseCase {
 
     private final SaveCallsPort saveCallsPort;
-    private final GetCustomerPort getCustomerPort;
+    private final GetCustomerQuery getCustomerQuery;
     private final SaveCustomerPort saveCustomerPort;
 
     @Override
@@ -52,7 +52,7 @@ public class CallsCRUDService implements SaveCallsUseCase {
         Set<PhoneNumber> incomingPhoneNumbers = incomingPhoneNumberCalls.keySet();
 
         Map<PhoneNumber, Customer> customerNumbers =
-                getCustomerPort.getByNumbers(incomingPhoneNumbers);
+                getCustomerQuery.getByNumbers(incomingPhoneNumbers);
 
         Set<PhoneNumber> existingPhoneNumbers = customerNumbers.keySet();
         Set<PhoneNumber> newPhoneNumbers =

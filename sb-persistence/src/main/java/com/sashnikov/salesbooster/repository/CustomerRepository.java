@@ -11,8 +11,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import com.sashnikov.salesbooster.app.entity.Customer;
 import com.sashnikov.salesbooster.app.entity.PhoneNumber;
-import com.sashnikov.salesbooster.app.port.GetCustomerPort;
-import com.sashnikov.salesbooster.app.port.SaveCustomerPort;
+import com.sashnikov.salesbooster.app.query.GetCustomerQuery;
+import com.sashnikov.salesbooster.app.query.SaveCustomerPort;
 import com.sashnikov.salesbooster.model.PhoneNumberDB;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
@@ -25,7 +25,7 @@ import org.springframework.stereotype.Repository;
  * @author Ilya_Sashnikau
  */
 @Repository
-public class CustomerRepository extends NamedParameterJdbcDaoSupport implements SaveCustomerPort, GetCustomerPort {
+public class CustomerRepository extends NamedParameterJdbcDaoSupport implements SaveCustomerPort, GetCustomerQuery {
 
     public CustomerRepository(DataSource dataSource) {
         setDataSource(dataSource);

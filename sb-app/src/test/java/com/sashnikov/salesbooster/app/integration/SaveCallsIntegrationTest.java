@@ -3,8 +3,6 @@ package com.sashnikov.salesbooster.app.integration;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertTrue;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.net.URI;
 import java.time.LocalDateTime;
@@ -18,8 +16,8 @@ import com.sashnikov.salesbooster.app.entity.Call;
 import com.sashnikov.salesbooster.app.entity.CallType;
 import com.sashnikov.salesbooster.app.entity.Customer;
 import com.sashnikov.salesbooster.app.entity.PhoneNumber;
-import com.sashnikov.salesbooster.app.port.GetCallsPort;
-import com.sashnikov.salesbooster.app.port.GetCustomerPort;
+import com.sashnikov.salesbooster.app.query.GetCallsQuery;
+import com.sashnikov.salesbooster.app.query.GetCustomerQuery;
 import com.sashnikov.salesbooster.app.usecase.SaveCallsUseCase.CallDTO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -27,14 +25,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 /**
  * @author Ilya_Sashnikau
@@ -47,10 +42,10 @@ public class SaveCallsIntegrationTest extends SingletonPostgresContainerBaseTest
     private ObjectMapper objectMapper;
 
     @Autowired
-    private GetCallsPort getCallsPort;
+    private GetCallsQuery getCallsQuery;
 
     @Autowired
-    private GetCustomerPort getCustomerPort;
+    private GetCustomerQuery getCustomerQuery;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -62,21 +57,17 @@ public class SaveCallsIntegrationTest extends SingletonPostgresContainerBaseTest
         List<CallDTO> calls = testData();
         String data = objectMapper.writeValueAsString(calls);
 
-        MockHttpServletRequestBuilder requestBuilder = post("/api/v1/calls")
-                .content(data)
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-
         URI uri = new URI(testRestTemplate.getRootUri().concat("/api/v1/calls"));
         RequestEntity<String> requestEntity = RequestEntity.post(uri).contentType(MediaType.APPLICATION_JSON).body(data);
         ResponseEntity<String> responseEntity = testRestTemplate.postForEntity(uri, requestEntity, String.class);
         assertTrue(responseEntity.getStatusCode().is2xxSuccessful());
 
-        Set<Call> actualCalls = getCallsPort.getAll()
+        Set<Call> actualCalls = getCallsQuery.getAll()
                 .stream()
                 .peek(call -> call.setId(null)).collect(Collectors.toSet());
 
         Map<PhoneNumber, Customer> numberCustomerMap =
-                getCustomerPort.getByNumbers(
+                getCustomerQuery.getByNumbers(
                         calls.stream().map(CallDTO::getNumber).collect(Collectors.toSet())
                 );
 

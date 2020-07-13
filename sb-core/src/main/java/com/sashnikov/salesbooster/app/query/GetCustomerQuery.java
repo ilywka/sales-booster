@@ -1,4 +1,4 @@
-package com.sashnikov.salesbooster.app.port;
+package com.sashnikov.salesbooster.app.query;
 
 import java.util.Map;
 import java.util.Set;
@@ -8,6 +8,6 @@ import com.sashnikov.salesbooster.app.entity.PhoneNumber;
 /**
  * @author Ilya_Sashnikau
  */
-public interface GetCustomerPort {
+public interface GetCustomerQuery {
     Map<PhoneNumber, Customer> getByNumbers(Set<PhoneNumber> keySet);
 }

@@ -12,9 +12,9 @@ import com.sashnikov.salesbooster.app.entity.Call;
 import com.sashnikov.salesbooster.app.entity.CallType;
 import com.sashnikov.salesbooster.app.entity.Customer;
 import com.sashnikov.salesbooster.app.entity.PhoneNumber;
-import com.sashnikov.salesbooster.app.port.GetCustomerPort;
-import com.sashnikov.salesbooster.app.port.SaveCallsPort;
-import com.sashnikov.salesbooster.app.port.SaveCustomerPort;
+import com.sashnikov.salesbooster.app.query.GetCustomerQuery;
+import com.sashnikov.salesbooster.app.query.SaveCallsPort;
+import com.sashnikov.salesbooster.app.query.SaveCustomerPort;
 import com.sashnikov.salesbooster.app.usecase.SaveCallsUseCase.CallDTO;
 import com.sashnikov.salesbooster.app.usecase.SaveCallsUseCase.SaveCallsCommand;
 import org.junit.jupiter.api.Test;
@@ -32,7 +32,7 @@ class CallsCRUDServiceTest {
 
     @Mock private SaveCallsPort saveCallsPort;
     @Mock private SaveCustomerPort saveCustomerPort;
-    @Mock private GetCustomerPort getCustomerPort;
+    @Mock private GetCustomerQuery getCustomerQuery;
     @InjectMocks private CallsCRUDService callsCRUDService;
 
     @Test
@@ -48,7 +48,7 @@ class CallsCRUDServiceTest {
                 new CallDTO(absentNumber, CallType.INCOMING, date, 1L)
         );
 
-        given(getCustomerPort.getByNumbers(Set.of(existingNumber, absentNumber))).willReturn(Map.of(existingNumber, existingCustomer));
+        given(getCustomerQuery.getByNumbers(Set.of(existingNumber, absentNumber))).willReturn(Map.of(existingNumber, existingCustomer));
         given(saveCustomerPort.createCustomers(Set.of(absentNumber))).willReturn(Map.of(absentNumber, absentCustomer));
 
         SaveCallsCommand command = new SaveCallsCommand(callDTOS);
@@ -76,7 +76,7 @@ class CallsCRUDServiceTest {
                 new CallDTO(existingNumber2, CallType.INCOMING, date, 1L)
         );
 
-        given(getCustomerPort.getByNumbers(Set.of(existingNumber, existingNumber2)))
+        given(getCustomerQuery.getByNumbers(Set.of(existingNumber, existingNumber2)))
                 .willReturn(Map.of(
                         existingNumber, existingCustomer,
                         existingNumber2, existingCustomer2
@@ -108,7 +108,7 @@ class CallsCRUDServiceTest {
         );
         Set<PhoneNumber> absentNumbersSet = Set.of(absentNumber, absentNumber2);
 
-        given(getCustomerPort.getByNumbers(absentNumbersSet))
+        given(getCustomerQuery.getByNumbers(absentNumbersSet))
                 .willReturn(Map.of());
         given(saveCustomerPort.createCustomers(absentNumbersSet))
                 .willReturn(Map.of(

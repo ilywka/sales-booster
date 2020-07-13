@@ -9,8 +9,8 @@ import java.util.Set;
 import com.sashnikov.salesbooster.app.entity.Call;
 import com.sashnikov.salesbooster.app.entity.CallType;
 import com.sashnikov.salesbooster.app.entity.Customer;
-import com.sashnikov.salesbooster.app.port.GetCallsPort;
-import com.sashnikov.salesbooster.app.port.SaveCallsPort;
+import com.sashnikov.salesbooster.app.query.GetCallsQuery;
+import com.sashnikov.salesbooster.app.query.SaveCallsPort;
 import com.sashnikov.salesbooster.util.ConvertUtil;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Repository;
  * @author Ilya_Sashnikau
  */
 @Repository
-public class CallsRepository extends JdbcDaoSupport implements SaveCallsPort, GetCallsPort {
+public class CallsRepository extends JdbcDaoSupport implements SaveCallsPort, GetCallsQuery {
 
 
     public CallsRepository(DataSource dataSource) {
