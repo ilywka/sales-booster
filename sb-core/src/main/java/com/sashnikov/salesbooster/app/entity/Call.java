@@ -18,13 +18,16 @@ import lombok.Setter;
 public class Call {
 
     private Long id;
-    private Customer customer;
+    private PhoneNumber phoneNumber;
     private CallType callType;
     private LocalDateTime date;
     private long durationSeconds;
 
-    public Call(Customer customer, CallType callType, LocalDateTime date, long durationSeconds) {
-        this.customer = customer;
+    public Call(PhoneNumber phoneNumber,
+                CallType callType,
+                LocalDateTime date,
+                long durationSeconds) {
+        this.phoneNumber = phoneNumber;
         this.callType = callType;
         this.date = date;
         this.durationSeconds = durationSeconds;

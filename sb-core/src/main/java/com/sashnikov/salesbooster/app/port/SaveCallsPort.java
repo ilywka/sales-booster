@@ -1,4 +1,4 @@
-package com.sashnikov.salesbooster.app.query;
+package com.sashnikov.salesbooster.app.port;
 
 import java.util.Set;
 import com.sashnikov.salesbooster.app.entity.Call;
