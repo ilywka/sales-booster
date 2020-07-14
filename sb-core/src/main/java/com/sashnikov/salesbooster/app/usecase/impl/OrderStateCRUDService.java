@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class OrderStateCRUDService implements UpdateOrderStateFromCallsHistoryUseCase {
 
+    public static final int INCOMING_CALL_DURATION_THRESHOLD = 10;
     private final UpdateOrderStatePort updateOrderStatePort;
 
     @Override
@@ -63,11 +64,17 @@ public class OrderStateCRUDService implements UpdateOrderStateFromCallsHistoryUs
 
     private OrderState determineOrderState(CallDTO callDTO) {
         CallType callType = callDTO.getCallType();
-        if (callType == CallType.MISSED) {
+        boolean durationExceedsThreshold =
+                callDTO.getDurationSeconds() > INCOMING_CALL_DURATION_THRESHOLD;
+
+        if (callType == CallType.MISSED
+                || callType == CallType.REJECTED
+                || ((callType == CallType.INCOMING && !durationExceedsThreshold))) {
             return OrderState.NEW;
         }
 
-        if (callType == CallType.OUTGOING || callType == CallType.INCOMING) {
+        if (callType == CallType.OUTGOING
+                || (callType == CallType.INCOMING && durationExceedsThreshold)) {
             return OrderState.IN_PROGRESS;
         }
 

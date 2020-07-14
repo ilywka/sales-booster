@@ -26,7 +26,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class CallsCRUDServiceTest {
 
-
     @Mock private SaveCallsPort saveCallsPort;
     @Mock UpdateOrderStateFromCallsHistoryUseCase updateOrderStateFromCallsHistoryUseCase;
     @InjectMocks private CallsCRUDService callsCRUDService;
